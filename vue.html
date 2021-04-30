@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Matriz de complejidad</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="bootstrap.min.css">
+</head>
+
+<body>
+
+    <div class="navbar navbar-expand-lg fixed-top navbar-dark bg-info">
+        <div class="container">
+            <a class="navbar-brand">Gestión de proyectos basado en ITIL</a>
+            <a class="navbar-brand">Matriz de complejidad </a>
+        </div>
+    </div>
+
+    <div class="container" id="example-1">
+        <div class="page-header" id="banner">
+            <div class="row">
+                <div class="col-lg-8 col-md-7 col-sm-6">
+                    <h1>Flatly</h1>
+                    <h1 class="text-white">.</h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                    
+            <h5 class="text-info">Complejidad del negocio respecto al proyecto a implementar</h5>
+            <br>
+            <table class="table table-sm table-bordered">
+                <thead>
+                    <th></th>
+                    <th>Criterio</th>
+                    <th>
+                        Zona I
+                        <br>
+                        Complejidad baja
+                    </th>
+                    <th>
+                        Zona II
+                        <br>
+                        Complejidad media
+                    </th>
+                    <th>
+                        Zona III
+                        <br>
+                        Complejidad alta
+                    </th>
+                </thead>
+                <tbody>
+                    <tr v-for="(criterio, index) in criterios_negocio">
+                        <td>{{ parseInt(index)+1 }}</td>
+                        <td>{{ criterio.criterio }}</td>
+                        <td>
+                            <div class="btn-group" data-toggle="buttons">
+                                <label class="btn btn-sm btn-success">
+                                    <input @click="selecciona(index, 1)" type="radio" v-bind:name="criterio.nombre" autocomplete="off">
+                                    {{ criterio.opciones[0] }}
+                                </label>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="btn-group" data-toggle="buttons">
+                                <label class="btn btn-sm btn-warning">
+                                    <input @click="selecciona(index, 2)" type="radio" v-bind:name="criterio.nombre" autocomplete="off">
+                                    {{ criterio.opciones[1] }}
+                                </label>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="btn-group" data-toggle="buttons">
+                                <label class="btn btn-sm btn-danger">
+                                    <input @click="selecciona(index, 3)" type="radio" v-bind:name="criterio.nombre" autocomplete="off">
+                                    {{ criterio.opciones[2] }}
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="row">
+                <div class="col-md-2">
+                    <button @click="calcular" type="button" class="btn btn-secondary" data-toggle="button" aria-pressed="false"
+                autocomplete="off">Calcular</button>
+                </div>
+                <div class="col-md-10" v-show="calculado_negocio">
+                    <div class="alert alert-info" role="alert">
+                        {{ mensaje_negocio }}
+                        <strong>{{ total_negocio }}</strong>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+            <hr>
+            <br>
+
+            <div class="col-md-12">
+                
+                <h5 class="text-info">Complejidad del negocio respecto al proyecto a implementar</h5>
+                <br>
+                <table class="table table-sm table-bordered">
+                    <thead>
+                        <th></th>
+                        <th>Atributo de la tecnología</th>
+                        <th>
+                            Zona I
+                            <br>
+                            Complejidad baja
+                        </th>
+                        <th>
+                            Zona II
+                            <br>
+                            Complejidad media
+                        </th>
+                        <th>
+                            Zona III
+                            <br>
+                            Complejidad alta
+                        </th>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(criterio, index) in criterios_tecnologia">
+                            <td>{{ parseInt(index)+1 }}</td>
+                            <td>{{ criterio.criterio }}</td>
+                            <td>
+                                <div class="btn-group" data-toggle="buttons">
+                                    <label class="btn btn-sm btn-success">
+                                        <input @click="selecciona_tecnologia(index, 1)" type="radio" v-bind:name="criterio.nombre" autocomplete="off">
+                                        {{ criterio.opciones[0] }}
+                                    </label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="btn-group" data-toggle="buttons">
+                                    <label class="btn btn-sm btn-warning">
+                                        <input @click="selecciona_tecnologia(index, 2)" type="radio" v-bind:name="criterio.nombre" autocomplete="off">
+                                        {{ criterio.opciones[1] }}
+                                    </label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="btn-group" data-toggle="buttons">
+                                    <label class="btn btn-sm btn-danger">
+                                        <input @click="selecciona_tecnologia(index, 3)" type="radio" v-bind:name="criterio.nombre" autocomplete="off">
+                                        {{ criterio.opciones[2] }}
+                                    </label>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <button @click="calcular_tecnologia" type="button" class="btn btn-secondary" data-toggle="button" aria-pressed="false"
+                    autocomplete="off">Calcular</button>
+                    </div>
+                    <div class="col-md-9" v-show="calculado_tecnologia">
+                        <div class="alert alert-info" role="alert">
+                            {{ mensaje_tecnologia }}
+                            <strong>{{ total_tecnologia }}</strong>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <hr>
+            <br>
+
+            <!-- Conclusion -->
+            <div v-show="( calculado_tecnologia && calculado_negocio )">
+
+                <div class="alert alert-danger" role="alert" v-if="( total_tecnologia > 21 || total_negocio > 21 )">
+                    <strong>
+                        Conclusión: La complejidad del proyecto es elevada
+                    </strong>
+                </div>
+
+                <div class="alert alert-light" role="alert" v-else-if="( total_tecnologia < 21 || total_negocio < 21 ) && ( total_tecnologia > 11 || total_negocio > 11 )">
+                    <strong>
+                        Conclusión: La complejidad del proyecto es media
+                    </strong>
+                </div>
+
+                <div class="alert alert-success" role="alert" v-else>
+                    <strong>
+                        Conclusión: La complejidad del proyecto es baja
+                    </strong>
+                </div>
+
+            </div> <!-- Fin conclusion -->
+
+        </div>
+
+    </div>
+</div>
+
+
+        <script src="vue.js"></script>
+
+        <script>
+            var example1 = new Vue({
+                el: '#example-1',
+                data: {
+                    // Variables de complejidad de negocio
+                    mensaje_negocio: '',
+                    calculado_negocio: false,
+                    total_negocio: 0,
+
+                    // Variables complejidad de tecnologias
+                    mensaje_tecnologia: '',
+                    calculado_tecnologia: false,
+                    total_tecnologia: 0,
+
+                    // Criterios para matriz negocio
+                    criterios_negocio: [
+                        {
+                            nombre: 'negocio_1',
+                            criterio: 'Cuantos ejecutivos de la organización poseen conocimientos en esa rama del negocio.',
+                            opciones: ['Uno', 'Entre 2 y 3', 'Ninguno, 4 o mas'],
+                            seleccion: 0
+                        },
+                        {
+                            nombre: 'negocio_2',
+                            criterio: 'Definición de Objetivos del negocio.',
+                            opciones: ['Método SMART', 'Método SMART, aplicado no en su totalidad.', 'Vagos'],
+                            seleccion: 0
+                        },
+                        {
+                            nombre: 'negocio_3',
+                            criterio: 'Procesos de negocio',
+                            opciones: ['Pocos (1 a 4)', '5 a 6', 'Muchos, más de 6'],
+                            seleccion: 0
+                        },
+                        {
+                            nombre: 'negocio_4',
+                            criterio: 'Políticas del negocio',
+                            opciones: ['Existentes', 'Vagas', 'Inexistentes'],
+                            seleccion: 0
+                        },
+                        {
+                            nombre: 'negocio_5',
+                            criterio: 'Regulaciones del negocio (Superintendencia o SII)',
+                            opciones: ['Pocas y Simples', 'Pocas y complejas', 'Muchas y Complejas'],
+                            seleccion: 0
+                        },
+                        {
+                            nombre: 'negocio_6',
+                            criterio: 'Personal',
+                            opciones: ['Experimentado', 'Poca experiencia', 'Sin Experiencia'],
+                            seleccion: 0
+                        },
+                        {
+                            nombre: 'negocio_7',
+                            criterio: 'Ámbito geográfico del negocio',
+                            opciones: ['Una Localización', 'Regional', 'Global'],
+                            seleccion: 0
+                        },
+                        {
+                            nombre: 'negocio_8',
+                            criterio: 'Reglas internas del negocio',
+                            opciones: ['Establecidas', 'Vagas', 'Inexistentes'],
+                            seleccion: 0
+                        }
+                    ],
+
+                    // Criterios para matriz tecnologia
+                    criterios_tecnologia: [
+                        {
+                            nombre: 'tecnologia_1',
+                            criterio: 'Arquitectura tecnológica del proyecto',
+                            opciones: ['Existente en la  empresa.', 'Existen, pero no desarrolladas', 'Inexistente en la empresa'],
+                            seleccion: 0
+                        },
+                        {
+                            nombre: 'tecnologia_2',
+                            criterio: 'Proveedores de Tecnología y telecomunicaciones',
+                            opciones: ['Antiguos, con presencia de más de 4 años en el mercado.', 'Antiguos con presencia de menos de 4 años en le mercado', 'Nuevos'],
+                            seleccion: 0
+                        },
+                        {
+                            nombre: 'tecnologia_3',
+                            criterio: 'Localización de los dispositivos a controlar',
+                            opciones: ['Una', 'Entre 3 y 4 localizaciones', '5 o más'],
+                            seleccion: 0
+                        },
+                        {
+                            nombre: 'tecnologia_4',
+                            criterio: 'Personal de áreas tecnológicas',
+                            opciones: ['Experimentado, más de 2 años', 'Menos de 2 años de experiencia', 'Sin experiencia'],
+                            seleccion: 0
+                        },
+                        {
+                            nombre: 'tecnologia_5',
+                            criterio: 'Cantidad de plataformas',
+                            opciones: ['Pocas (1 a 3)', '4', 'Muchas (más de 4)'],
+                            seleccion: 0
+                        },
+                        {
+                            nombre: 'tecnologia_6',
+                            criterio: 'Nivel de integración de las distintas plataformas, actualmente',
+                            opciones: ['Integradas', 'Medianamente integradas', 'Sin integración'],
+                            seleccion: 0
+                        },
+                        {
+                            nombre: 'tecnologia_7',
+                            criterio: 'Plataformas tolerantes a fallas o redundantes',
+                            opciones: ['Muchas (Mayor a 70%)', 'Entre 30% y 69%', 'Menos de 30%'],
+                            seleccion: 0
+                        },
+                        {
+                            nombre: 'tecnologia_8',
+                            criterio: 'Criterio adicional',
+                            opciones: ['1', '2', '3'],
+                            seleccion: 0
+                        }
+                    ],
+                    
+                },
+                methods: {
+                    selecciona: function(numero, valor) {
+                        this.criterios_negocio[numero].seleccion = valor;
+                    },
+                    calcular: function(){
+                        let suma = 0;
+                        let completo = true;
+                        this.criterios_negocio.forEach (function(criterio){
+                            if( criterio.seleccion == 0 ){
+                                completo = false;
+                            }else{
+                                suma = parseInt(suma) + parseInt(criterio.seleccion);
+                            }
+                        });
+                        if( completo ){
+                            this.total_negocio = suma;
+                            this.mensaje_negocio = 'El valor de la complejidad del negocio para implementar el proyecto es de ';
+                            this.calculado_negocio = true;
+                        }else{
+                            alert('Debe completar toda la matriz del negocio');
+                        }
+                    },
+
+                    selecciona_tecnologia: function(numero, valor) {
+                        this.criterios_tecnologia[numero].seleccion = valor;
+                    },
+                    calcular_tecnologia: function(){
+                        let suma_tecnologia = 0;
+                        let completo_tecnologia = true;
+                        this.criterios_tecnologia.forEach (function(criterio){
+                            if( criterio.seleccion == 0 ){
+                                completo_tecnologia = false;
+                            }else{
+                                suma_tecnologia = parseInt(suma_tecnologia) + parseInt(criterio.seleccion);
+                            }
+                        });
+                        if( completo_tecnologia ){
+                            this.total_tecnologia = suma_tecnologia;
+                            this.mensaje_tecnologia = 'El valor de la complejidad de la tecnología para implementar el proyecto es de ';
+                            this.calculado_tecnologia = true;
+                        }else{
+                            alert('Debe completar toda la matriz de tecnología');
+                        }
+                    }                    
+                }
+            })
+        </script>
+
+</body>
+
+</html>
