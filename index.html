@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
 </head>
 
 <body>
@@ -199,6 +200,112 @@
                 </div>
 
             </div> <!-- Fin conclusion -->
+
+            <table v-show="( calculado_tecnologia && calculado_negocio )" class="table table-bordered">
+                <tr>
+                    <td class="table-success">8-12 NEGOCIO</td>
+                    <td>13-16 NEGOCIO</td>
+                    <td>17-20 NEGOCIO</td>
+                    <td class="table-danger">21-24 NEGOCIO</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>
+                        <p class="text-danger" v-show="( total_tecnologia > 20 && total_negocio < 13 )">
+                            <i class="bi bi-circle-fill"></i> Evaluacion del proyecto
+                        </p>
+                    </td>
+                    <td>
+                        <p class="text-danger" v-show="( total_tecnologia > 20 && ( total_negocio > 12 && total_negocio < 17 ) )">
+                            <i class="bi bi-circle-fill"></i> Evaluacion del proyecto
+                        </p>
+                    </td>
+                    <td>
+                        <p class="text-danger" v-show="( total_tecnologia > 21 && ( total_negocio > 16 && total_negocio < 21 ) )">
+                            <i class="bi bi-circle-fill"></i> Evaluacion del proyecto
+                        </p>
+                    </td>
+                    <td>
+                        <p class="text-danger" v-show="( total_tecnologia > 20 && total_negocio > 20 )">
+                            <i class="bi bi-circle-fill"></i> Evaluacion del proyecto
+                        </p>
+                    </td>
+                    <td class="table-danger">20-24 TEC</td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <p class="text-info" v-show="( ( total_tecnologia < 21 && total_tecnologia > 16 ) && total_negocio < 13 )">
+                            <i class="bi bi-circle-fill"></i> Evaluacion del proyecto
+                        </p>
+                    </td>
+                    <td>
+                        <p class="text-info" v-show="( ( total_tecnologia < 21 && total_tecnologia > 16 ) && ( total_negocio > 12 && total_negocio < 17 ) )">
+                            <i class="bi bi-circle-fill"></i> Evaluacion del proyecto
+                        </p>
+                    </td>
+                    <td>
+                        <p class="text-info" v-show="( ( total_tecnologia < 21 && total_tecnologia > 16 ) && ( total_negocio > 16 && total_negocio < 21 ) )">
+                            <i class="bi bi-circle-fill"></i> Evaluacion del proyecto
+                        </p>
+                    </td>
+                    <td>
+                        <p class="text-danger" v-show="( ( total_tecnologia < 21 && total_tecnologia > 16 ) && total_negocio > 20 )">
+                            <i class="bi bi-circle-fill"></i> Evaluacion del proyecto
+                        </p>
+                    </td>
+                    <td class="">17-20 TEC</td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <p class="text-info" v-show="( ( total_tecnologia < 17 && total_tecnologia > 12 ) && total_negocio < 13 )">
+                            <i class="bi bi-circle-fill"></i> Evaluacion del proyecto
+                        </p>
+                    </td>
+                    <td>
+                        <p class="text-info" v-show="( ( total_tecnologia < 17 && total_tecnologia > 12 ) && ( total_negocio > 12 && total_negocio < 17 ) )">
+                            <i class="bi bi-circle-fill"></i> Evaluacion del proyecto
+                        </p>
+                    </td>
+                    <td>
+                        <p class="text-info" v-show="( ( total_tecnologia < 17 && total_tecnologia > 12 ) && ( total_negocio > 16 && total_negocio < 21 ) )">
+                            <i class="bi bi-circle-fill"></i> Evaluacion del proyecto
+                        </p>
+                    </td>
+                    <td>
+                        <p class="text-danger" v-show="( ( total_tecnologia < 17 && total_tecnologia > 12 ) && total_negocio > 20 )">
+                            <i class="bi bi-circle-fill"></i> Evaluacion del proyecto
+                        </p>
+                    </td>
+                    <td class="">13-16 TEC</td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <p class="text-success" v-show="( total_tecnologia < 13 && total_negocio < 13 )">
+                            <i class="bi bi-circle-fill"></i> Evaluacion del proyecto
+                        </p>
+                    </td>
+                    <td>
+                        <p class="text-info" v-show="( total_tecnologia < 13 && ( total_negocio > 12 && total_negocio < 17 ) )">
+                            <i class="bi bi-circle-fill"></i> Evaluacion del proyecto
+                        </p>
+                    </td>
+                    <td>
+                        <p class="text-info" v-show="( total_tecnologia < 13 && ( total_negocio > 16 && total_negocio < 21 ) )">
+                            <i class="bi bi-circle-fill"></i> Evaluacion del proyecto
+                        </p>
+                    </td>
+                    <td>
+                        <p class="text-danger" v-show="( total_tecnologia < 13 && total_negocio > 20 )">
+                            <i class="bi bi-circle-fill"></i> Evaluacion del proyecto
+                        </p>
+                    </td>
+                    <td class="table-success">8-12 TEC</td>
+                </tr>
+                
+            </table>
 
         </div>
 
