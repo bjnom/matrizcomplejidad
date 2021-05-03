@@ -9,6 +9,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="toastr.css">
 </head>
 
 <body>
@@ -33,7 +34,7 @@
         <div class="row">
             <div class="col-md-12">
                     
-            <h5 class="text-info">Complejidad del negocio respecto al proyecto a implementar</h5>
+            <h5 class="text-info">Complejidad del negocio en relación al proyecto tecnológico que se desea implementar</h5>
             <br>
             <table class="table table-sm table-bordered">
                 <thead>
@@ -106,7 +107,7 @@
 
             <div class="col-md-12">
                 
-                <h5 class="text-info">Complejidad del negocio respecto al proyecto a implementar</h5>
+                <h5 class="text-info">Complejidad de las tecnologías para implementar un nuevo proyecto</h5>
                 <br>
                 <table class="table table-sm table-bordered">
                     <thead>
@@ -312,8 +313,29 @@
     </div>
 </div>
 
-
+        <script src="jquery.js"></script>
         <script src="vue.js"></script>
+        <script src="toastr.js"></script>
+
+        <script>
+            toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-bottom-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "3000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+            }
+        </script>
 
         <script>
             var example1 = new Vue({
@@ -329,7 +351,7 @@
                     calculado_tecnologia: false,
                     total_tecnologia: 0,
 
-                    // Criterios para matriz negocio
+                    // Criterios para matriz
                     criterios_negocio: [
                         {
                             nombre: 'negocio_1',
@@ -427,8 +449,8 @@
                         },
                         {
                             nombre: 'tecnologia_8',
-                            criterio: 'Criterio adicional',
-                            opciones: ['1', '2', '3'],
+                            criterio: 'Rendimiento del Hardware',
+                            opciones: ['Optimo', 'Medianamente eficiente', 'Poco eficiente'],
                             seleccion: 0
                         }
                     ],
@@ -453,7 +475,7 @@
                             this.mensaje_negocio = 'El valor de la complejidad del negocio para implementar el proyecto es de ';
                             this.calculado_negocio = true;
                         }else{
-                            alert('Debe completar toda la matriz del negocio');
+                            toastr.warning('Debe completar toda la matriz del negocio', 'Datos faltantes');
                         }
                     },
 
@@ -475,7 +497,7 @@
                             this.mensaje_tecnologia = 'El valor de la complejidad de la tecnología para implementar el proyecto es de ';
                             this.calculado_tecnologia = true;
                         }else{
-                            alert('Debe completar toda la matriz de tecnología');
+                            toastr.warning('Debe completar toda la matriz de tecnología', 'Datos faltantes');
                         }
                     }                    
                 }
